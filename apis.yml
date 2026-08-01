@@ -1,21 +1,45 @@
 aid: spate
 name: Spate
-description: 'Spate is a company surfaced as a portfolio company of initialized-capital and added to the
-  API Evangelist network as a stub for enrichment. Sector: enterprise-saas. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: 'Spate is an AI-powered consumer trend forecasting and market intelligence
+  platform for beauty, wellness, and food and beverage brands. It analyzes hundreds
+  of billions of search signals and hundreds of millions of social posts across TikTok,
+  Instagram, Reddit, and Google to predict emerging trends, benchmark competitors,
+  surface whitespace opportunities, and track viral content and sentiment. Used by
+  200+ brands including Sephora, L''Oreal, P&G, Unilever, and e.l.f. Beauty across
+  marketing, R&D, sales, and retail teams. Spate is a consumer-facing SaaS analytics
+  product and does not currently publish a public API, developer portal, or SDKs.'
 url: https://raw.githubusercontent.com/api-evangelist/spate/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/687007b9a91ba29ace417424/68f11383d3f1743e47db90d4_OGImage.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - initialized-capital
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-api-surface: none
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Enterprise Saas
+- Market Intelligence
+- Trend Forecasting
+- Consumer Insights
+- Social Listening
+- Analytics
+- Beauty
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -25,3 +49,26 @@ maintainers:
 common:
 - type: Website
   url: https://spate.nyc
+- type: About
+  url: https://www.spate.nyc/company
+- type: Blog
+  url: https://www.spate.nyc/resources/blog
+- type: HelpCenter
+  url: https://help.spate.nyc/en
+- type: Pricing
+  url: https://www.spate.nyc/pricing
+- type: SignUp
+  url: https://www.spate.nyc/trial
+- type: Login
+  url: https://app.spate.nyc
+- type: TermsOfService
+  url: https://www.spate.nyc/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.spate.nyc/privacy-policy
+- type: DomainSecurity
+  url: security/spate-domain-security.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
