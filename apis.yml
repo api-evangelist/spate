@@ -6,20 +6,26 @@ description: 'Spate is an AI-powered consumer trend forecasting and market intel
   Instagram, Reddit, and Google to predict emerging trends, benchmark competitors,
   surface whitespace opportunities, and track viral content and sentiment. Used by
   200+ brands including Sephora, L''Oreal, P&G, Unilever, and e.l.f. Beauty across
-  marketing, R&D, sales, and retail teams. Spate is a consumer-facing SaaS analytics
-  product and does not currently publish a public API, developer portal, or SDKs.'
+  marketing, R&D, sales, and retail teams. Spate operates a live remote Model Context
+  Protocol server at https://api.spate.nyc/mcp that exposes four trend-intelligence
+  tools to AI agents, plus a sales-provisioned Brand Data and Trend Data API sold as
+  a subscription add-on. Neither surface has a published OpenAPI, developer portal,
+  SDK, or self-serve API key: Spate states that API integrations are manually
+  configured by its technical team.'
 url: https://raw.githubusercontent.com/api-evangelist/spate/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
-  onboarding: unknown
+  onboarding: sales
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Gated
+  confidence: medium
+  source:
+  - https://help.spate.nyc/en/article/api-overview
+  - https://www.spate.nyc/pricing
+  generated: '2026-08-13'
+  method: searched
 image: https://cdn.prod.website-files.com/687007b9a91ba29ace417424/68f11383d3f1743e47db90d4_OGImage.png
 x-type: company
 x-source: vc-portfolio
@@ -27,10 +33,10 @@ x-backed-by:
 - initialized-capital
 x-tier: stub
 x-tier-reason: portfolio-lead
-x-api-surface: none
+x-api-surface: mcp
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Enterprise Saas
@@ -40,7 +46,46 @@ tags:
 - Social Listening
 - Analytics
 - Beauty
-apis: []
+- MCP
+- AI Agents
+- Trend Data
+- Consumer Packaged Goods
+apis:
+- name: Spate API
+  description: 'The Spate API surface is reached at api.spate.nyc. Its only publicly
+    discoverable contract is a remote Model Context Protocol server at
+    https://api.spate.nyc/mcp, which answers anonymous initialize and tools/list
+    calls and exposes four read-only tools — top_trends, time_series,
+    top_related_trends and find_category — over Spate''s five-level consumer
+    taxonomy, six regions, and the popularity index, TikTok and Reddit data
+    sources. Tool invocation requires an OAuth 2.1 bearer token with scope mcp.
+    Spate separately sells Brand Data and Trend Data API access as a subscription
+    add-on requiring at least 5 seats, manually configured by its technical team;
+    no OpenAPI, reference, or SDK is published for either surface.'
+  humanURL: https://help.spate.nyc/en/article/api-overview
+  baseURL: https://api.spate.nyc
+  tags:
+  - Trend Data
+  - Market Intelligence
+  - MCP
+  - Consumer Insights
+  properties:
+  - type: MCPServer
+    url: mcp/spate-mcp.yml
+  - type: Documentation
+    url: https://help.spate.nyc/en/article/api-overview
+  - type: Authentication
+    url: authentication/spate-authentication.yml
+  - type: OAuthScopes
+    url: scopes/spate-scopes.yml
+  - type: ErrorCatalog
+    url: errors/spate-problem-types.yml
+  - type: Conventions
+    url: conventions/spate-conventions.yml
+  - type: DataModel
+    url: data-model/spate-data-model.yml
+  - type: RateLimits
+    url: rate-limits/spate-rate-limits.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -55,6 +100,8 @@ common:
   url: https://www.spate.nyc/resources/blog
 - type: HelpCenter
   url: https://help.spate.nyc/en
+- type: Documentation
+  url: https://help.spate.nyc/en/article/api-overview
 - type: Pricing
   url: https://www.spate.nyc/pricing
 - type: SignUp
@@ -65,10 +112,50 @@ common:
   url: https://www.spate.nyc/terms-of-service
 - type: PrivacyPolicy
   url: https://www.spate.nyc/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/SPATENYC
+- type: StatusPage
+  url: https://status.spate.nyc/
+- type: SLA
+  url: https://help.spate.nyc/en/article/sla-service-level-agreement
+- type: MCPServer
+  url: mcp/spate-mcp.yml
+- type: Authentication
+  url: authentication/spate-authentication.yml
+- type: OAuthScopes
+  url: scopes/spate-scopes.yml
+- type: WellKnown
+  url: well-known/spate-well-known.yml
+- type: LLMsTxt
+  url: llms/spate-llms.txt
+- type: Conformance
+  url: conformance/spate-conformance.yml
+- type: Compliance
+  url: security/spate-trust-center.yml
+- type: TrustCenter
+  url: security/spate-trust-center.yml
+- type: Security
+  url: security/spate-vulnerability-disclosure.yml
+- type: VulnerabilityDisclosure
+  url: security/spate-vulnerability-disclosure.yml
 - type: DomainSecurity
   url: security/spate-domain-security.yml
+- type: ErrorCatalog
+  url: errors/spate-problem-types.yml
+- type: Conventions
+  url: conventions/spate-conventions.yml
+- type: DataModel
+  url: data-model/spate-data-model.yml
+- type: Lifecycle
+  url: lifecycle/spate-lifecycle.yml
+- type: Plans
+  url: plans/spate-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/spate-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
 x-enrichment:
-  date: '2026-07-21'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 22
   pass: local-v1
