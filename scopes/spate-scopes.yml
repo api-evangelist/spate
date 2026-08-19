@@ -1,0 +1,37 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.spate.nyc/.well-known/oauth-authorization-server
+note: >-
+  Spate's authorization server advertises exactly one scope. There is no
+  published scope/permissions reference page on spate.nyc or the help center,
+  and no OpenAPI oauth2 securityScheme to derive a richer set from — so this
+  is the complete, real scope surface as the provider advertises it, not a
+  partial harvest.
+
+authorization_server: https://api.spate.nyc/mcp
+scope_count: 1
+scopes:
+- name: mcp
+  description: >-
+    The single coarse scope advertised for the Spate MCP endpoint. It is not
+    described anywhere in Spate's public documentation; the name is taken
+    verbatim from `scopes_supported` in both the RFC 8414
+    authorization-server metadata and the RFC 9728 protected-resource
+    metadata.
+  source: scopes_supported
+  granularity: coarse
+  covers:
+  - top_trends
+  - time_series
+  - top_related_trends
+  - find_category
+
+findings:
+- >-
+  There is no read/write split and no per-tool scope. A token minted for the
+  Spate MCP server carries the whole trend-data surface, so an agent cannot
+  be granted least privilege against it.
+- >-
+  All four tools are read-only data retrieval, so the blast radius of the
+  single scope is bounded — but that is a property of the current tool set,
+  not a guarantee expressed in the authorization model.

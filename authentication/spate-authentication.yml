@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.spate.nyc/.well-known/oauth-authorization-server
+docs: https://help.spate.nyc/en/article/api-overview
+note: >-
+  Derived from the RFC 8414 authorization-server metadata and the RFC 9728
+  protected-resource metadata Spate serves anonymously on api.spate.nyc, plus
+  the live JSON-RPC challenge returned by the MCP endpoint. Spate publishes no
+  OpenAPI, so there is no securitySchemes block to derive from — this profile
+  is built entirely from probed discovery documents and the help-center API
+  Overview article.
+
+schemes:
+- id: spate_mcp_oauth
+  type: oauth2
+  in: header
+  header: Authorization
+  format: Bearer <access_token>
+  flows:
+  - flow: authorization_code
+    authorization_endpoint: https://api.spate.nyc/mcp/oauth/authorize
+    token_endpoint: https://api.spate.nyc/mcp/oauth/token
+    refresh: true
+    pkce:
+      supported: true
+      methods: [plain, S256]
+      note: >-
+        `plain` is advertised alongside S256. OAuth 2.1 and the MCP
+        authorization spec require S256; advertising `plain` weakens the
+        PKCE guarantee for any client that negotiates it.
+    token_endpoint_auth_methods_supported: [none]
+    scopes: [mcp]
+  applies_to:
+  - surface: MCP
+    endpoint: https://api.spate.nyc/mcp
+    enforcement: >-
+      tools/call returns JSON-RPC error -32001 "Missing Authorization: Bearer
+      token" without a token. initialize and tools/list are NOT gated and
+      answer anonymously.
+
+anonymous_surface:
+- endpoint: https://api.spate.nyc/mcp
+  methods: [initialize, tools/list]
+  note: Tool discovery is public; tool invocation is not.
+- endpoint: https://api.spate.nyc/.well-known/oauth-protected-resource
+- endpoint: https://api.spate.nyc/.well-known/oauth-authorization-server
+- endpoint: https://api.spate.nyc/.well-known/openid-configuration
+
+api_keys:
+  issued: false
+  evidence: >-
+    Spate's API Overview help article states plainly that Spate "does not
+    provide direct API keys" and that "API integrations are manually
+    configured by our technical team to ensure proper access and security."
+  source: https://help.spate.nyc/en/article/api-overview
+
+access_requirements:
+- Minimum 5 seats on a Spate subscription
+- API access is a paid add-on, not included in a standard subscription
+- A named technical point of contact for setup
+- Onboarding routed through the Customer Success Manager or support@spate.nyc
+
+gaps:
+- No dynamic client registration endpoint advertised (RFC 7591 absent from
+  the authorization-server metadata), so an agent cannot self-register.
+- id_token_signing_alg_values_supported is ["none"] in the OpenID
+  configuration, which is not a usable OIDC signing posture; the document
+  reads as MCP OAuth metadata rather than a real OpenID Provider.
+- No published scope reference beyond the single coarse `mcp` scope.

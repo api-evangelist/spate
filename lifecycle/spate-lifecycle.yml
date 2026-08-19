@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://help.spate.nyc/en/article/sla-service-level-agreement,
+  https://help.spate.nyc/en/article/service-status,
+  https://status.spate.nyc/, https://api.spate.nyc/mcp
+
+status_page:
+  url: https://status.spate.nyc/
+  platform: BetterStack
+  verified: true
+  http_status: 200
+  title: Spate, Inc. status
+  referenced_from: https://help.spate.nyc/en/article/service-status
+  machine_readable_feeds:
+  - url: https://status.spate.nyc/history.rss
+    status: 200
+    note: BetterStack incident history feed.
+  subscribe: true
+
+sla:
+  published: true
+  url: https://help.spate.nyc/en/article/sla-service-level-agreement
+  uptime_target: 99.0%
+  measurement_window: calendar month
+  excludes: scheduled maintenance windows
+  maintenance:
+    advance_notice: 48 hours
+    max_duration_per_occurrence: 12 hours
+  unscheduled_downtime_restoration_target: 8 hours from detection, business days
+  support:
+    channels: [email, ticketing]
+    hours: 9:00 AM ET to 5:00 PM ET, Monday to Friday, excluding holidays
+    response_targets:
+      critical: 8 hours, business days
+      significant: 8 hours, business days
+      other: within 24 hours
+  note: >-
+    The SLA is written for the Spate SaaS subscription generally; it does not
+    carve out separate availability or support terms for the API or the MCP
+    endpoint.
+
+versioning:
+  policy_published: false
+  api_version: null
+  protocol_version: '2024-11-05'
+  server_version: 543015c517ab49f72c318efc7216bc9062586078
+  scheme: git commit SHA returned in MCP serverInfo
+  note: >-
+    No versioning policy, no version in a URL path, header or media type. The
+    MCP protocol revision (2024-11-05) is two-plus revisions behind current,
+    which is itself a lifecycle signal.
+
+deprecation:
+  policy_published: false
+  sunset_header: not observed
+  deprecation_header: not observed
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy is published and no Sunset/Deprecation headers were
+    observed. One in-band deprecation-adjacent signal exists in the contract
+    itself: the top_trends tool description says of its data_source parameter
+    "Only the popularity index is supported for now", which flags a planned
+    expansion rather than a removal.
+
+changelog:
+  published: false
+  note: >-
+    No dated changelog or release-notes surface found on spate.nyc,
+    help.spate.nyc or status.spate.nyc. The BetterStack incident history at
+    https://status.spate.nyc/history.rss is an availability log, not a change
+    log, and is not recorded as a ChangeLog pointer.
+
+maturity:
+  surface: MCP-only
+  public_spec: none
+  self_serve_access: false
+  stage: gated / sales-provisioned

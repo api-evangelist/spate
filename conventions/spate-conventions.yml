@@ -1,0 +1,123 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://api.spate.nyc/mcp (initialize, tools/list, tools/call) plus
+  https://help.spate.nyc/en/article/api-overview
+note: >-
+  Spate ships no OpenAPI and no developer reference, so these conventions were
+  read off the live MCP surface and the help-center API Overview article.
+  Where a convention is simply absent it is recorded as absent rather than
+  guessed — several of the rows below are honest "not published" findings.
+
+surface:
+  protocol: JSON-RPC 2.0 over Streamable HTTP (MCP)
+  endpoint: https://api.spate.nyc/mcp
+  content_type: application/json
+  accept: application/json, text/event-stream
+
+authentication:
+  style: OAuth 2.1 bearer token in the Authorization header
+  header: 'Authorization: Bearer <access_token>'
+  scope: mcp
+  self_serve: false
+  detail: authentication/spate-authentication.yml
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key, no request-deduplication header, and no documented
+    retry semantics. All four published tools are read-only retrievals, so
+    there is no unsafe write to make idempotent today — but the convention is
+    absent from the contract, not satisfied by it. No `Idempotency` pointer is
+    emitted for this provider.
+
+pagination:
+  style: enumerated result cap
+  parameter: limit
+  values: [top5, top100, all]
+  cursor: false
+  offset: false
+  total_count: false
+  note: >-
+    `limit` is a closed enum on top_trends and top_related_trends rather than
+    a numeric page size, and there is no cursor, offset or next-page token. A
+    consumer wanting 20 rows must request top100 and truncate client-side, and
+    a result set larger than `all` returns has no continuation mechanism.
+
+filtering:
+  region:
+    parameter: region
+    values: [us, gb, fr, jp, kr, global]
+  taxonomy_level:
+    parameter: level / category_level / item_type
+    values: [cat1, cat2, cat3, cat4, cat5, brand]
+  data_source:
+    parameter: data_source
+    values: [popindex, tiktok, reddit]
+    note: >-
+      top_trends accepts only `popindex`; the tool's own description says
+      "Only the popularity index is supported for now." time_series accepts
+      popindex, tiktok and reddit. The surfaces are not symmetric.
+  affinity_group:
+    parameter: affinity_group
+    cardinality: 44 enumerated values
+    tool: top_related_trends
+
+identifiers:
+  style: UUID
+  fields: [category_id, item_id]
+  prefixed: false
+  resolution: >-
+    find_category is the only lookup that accepts a human string; every other
+    tool requires a UUID. find_category is therefore a mandatory first hop for
+    any agent that starts from a natural-language category name.
+
+field_expansion:
+  supported: false
+sparse_fields:
+  supported: false
+metadata:
+  supported: false
+
+request_tracing:
+  request_id_header: null
+  correlation: JSON-RPC `id` member, echoed on the response
+  observed_headers:
+  - name: x-cloud-trace-context
+    origin: Google Cloud infrastructure, not a Spate-designed contract
+    example_shape: <trace-id>;o=1
+  note: >-
+    No X-Request-Id or Spate-authored correlation header. The only trace
+    identifier on the wire is Google Frontend's x-cloud-trace-context, which
+    Spate does not document or reference in any support instruction, so a
+    consumer has nothing they have been told to quote in a ticket.
+
+versioning:
+  api_version: null
+  protocol_version: '2024-11-05'
+  negotiated_in: MCP initialize
+  server_version: 543015c517ab49f72c318efc7216bc9062586078
+  scheme: git commit SHA
+  note: >-
+    There is no URL, header or media-type version for the data surface. The
+    only version a client can observe is the MCP protocol revision and an
+    opaque commit hash, neither of which supports compatibility reasoning.
+
+errors:
+  envelope: JSON-RPC error object inside an HTTP 200
+  rfc9457: false
+  detail: errors/spate-problem-types.yml
+
+rate_limit_signaling:
+  headers: none observed
+  documented: false
+  detail: rate-limits/spate-rate-limits.yml
+
+cross_links:
+  authentication: authentication/spate-authentication.yml
+  scopes: scopes/spate-scopes.yml
+  errors: errors/spate-problem-types.yml
+  lifecycle: lifecycle/spate-lifecycle.yml
+  rate_limits: rate-limits/spate-rate-limits.yml
+  data_model: data-model/spate-data-model.yml

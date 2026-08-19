@@ -1,0 +1,71 @@
+﻿# Spate
+ 
+> Spate is the leading AI-powered consumer trend forecasting and market intelligence platform for consumer brands. Based in New York City, Spate tracks signals across Google, TikTok, and Instagram to help marketing, R&D, PR, and innovation teams predict emerging trends, benchmark competitors, and identify whitespace opportunities — before they go mainstream.
+ 
+Spate serves brands across beauty & personal care, wellness, and food & beverage. The platform aggregates search and social data to surface early trend signals, quantify growth trajectories, and deliver actionable intelligence to teams that need to move fast.
+ 
+## Core Platform
+ 
+- [Solutions Overview](https://www.spate.nyc/solutions-overview): A full overview of Spate's platform capabilities and how they support every team — from marketing and R&D to PR and innovation.
+- [Request a Demo](https://www.spate.nyc/trial): Get a personalized walkthrough of the Spate dashboard.
+ 
+## Features
+ 
+- [Accurate Trend Prediction](https://www.spate.nyc/features/accurate-trend-prediction): Forecast which trends will break through before they peak, using search and social data signals across Google, TikTok and Instagram. 
+- [Competitive Benchmarking](https://www.spate.nyc/features/competitive-benchmarking): Measure brand and product performance against competitors using real consumer demand data.
+- [Trend Growth Drivers](https://www.spate.nyc/features/trend-growth-drivers): Understand what's fueling a trend — which ingredients, formats, claims, and cultural moments are accelerating growth.
+- [Top Social Content](https://www.spate.nyc/features/top-social-content): Identify the highest-performing social content driving consumer interest in any trend or category.
+- [Whitespace Opportunities](https://www.spate.nyc/features/whitespace-opportunities): Discover underserved consumer needs and gaps in the market where demand is rising but supply hasn't caught up.
+- [Enterprise Solutions](https://www.spate.nyc/features/enterprise-solutions): Custom data integrations, dedicated support, and tailored intelligence for large consumer goods organizations.
+ 
+## Industries
+ 
+- [Beauty & Personal Care](https://www.spate.nyc/industries/beauty-personal-care): Trend intelligence for skincare, makeup, haircare, fragrance, and personal care brands.
+- [Wellness](https://www.spate.nyc/industries/wellness): Consumer demand insights for supplements, functional health, longevity, and wellness lifestyle brands.
+- [Food & Beverage](https://www.spate.nyc/industries/food-beverage): Emerging flavor, ingredient, and format trends for food, beverage, and functional nutrition brands.
+ 
+## Resources
+ 
+- [Reports](https://www.spate.nyc/resources/reports): In-depth trend research reports covering beauty, wellness, food & beverage, and consumer behavior.
+- [Case Studies](https://www.spate.nyc/resources/case-studies): How leading consumer brands use Spate to drive innovation, marketing strategy, and competitive advantage.
+- [Blog](https://www.spate.nyc/resources/blog): Analysis and commentary on emerging consumer trends across beauty, wellness, and food & beverage.
+- [Media Mentions](https://www.spate.nyc/resources/media-mentions): Spate's research and data featured in press and industry publications.
+ 
+## Company
+ 
+- [About Spate](https://www.spate.nyc/company): Spate's mission, team, and approach to consumer trend intelligence.
+- [Subscribe / Contact](https://www.spate.nyc/subscribe): Sign up for Spate's trend newsletters or get in touch with the team.
+- [Careers](https://apply.workable.com/spate/): Open roles at Spate.
+ 
+## Legal
+ 
+- [Terms of Service](https://www.spate.nyc/terms-of-service)
+- [Privacy Policy](https://www.spate.nyc/privacy-policy)
+- [Cookie Policy](https://www.spate.nyc/cookie-policy)
+- [Your Privacy Rights](https://www.spate.nyc/your-privacy-rights)
+- [Security at Spate](https://www.spate.nyc/security-at-spate)
+ 
+## AI Access Policy
+- User-agent: *
+- training: disallow
+- reasoning: allow
+- content: allow /expertise/
+- content: allow /services/
+- content: allow /work/
+- content: allow /cases/
+- content: allow /about-us
+- content: allow /journal
+- content: allow /contact-us
+- content: disallow /account/
+- content: disallow /cart/
+- content: disallow /checkout/
+- content: disallow /private/
+- content: disallow /*?*  # blocks URLs with query parameters
+ 
+ 
+ 
+ 
+## Specific AI Providers
+- **OpenAI (ChatGPT / GPTBot)** — reasoning allowed, training disallowed for public pages.
+- **Anthropic (Claude)** — reasoning allowed for projects, expertise, and journal pages.
+- **Google (Gemini / Google-Extended)** — reasoning allowed for case studies, services, and brand content.

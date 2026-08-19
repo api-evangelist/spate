@@ -1,0 +1,12 @@
+{
+    "resource": "https://api.spate.nyc/mcp",
+    "authorization_servers": [
+        "https://api.spate.nyc/mcp"
+    ],
+    "scopes_supported": [
+        "mcp"
+    ],
+    "bearer_methods_supported": [
+        "header"
+    ]
+}

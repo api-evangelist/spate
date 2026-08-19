@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live probes of https://api.spate.nyc/mcp and its /.well-known/ documents,
+  plus https://www.spate.nyc/security-at-spate
+note: >-
+  Every `conforms: true` below is backed by a document or response this
+  pipeline fetched. Claims Spate makes about itself in prose (SOC 2, GDPR)
+  are recorded as claimed rather than verified, because no report, auditor
+  name, or certificate reference is published.
+
+standards:
+- id: jsonrpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: >-
+    Every response from https://api.spate.nyc/mcp carries `jsonrpc: "2.0"`,
+    a matching `id`, and either `result` or a structured `error` object with
+    numeric `code` and `message`.
+- id: mcp
+  name: Model Context Protocol
+  version: '2024-11-05'
+  conforms: true
+  evidence: >-
+    `initialize` returns protocolVersion 2024-11-05 with a tools capability;
+    `tools/list` returns tools with JSON Schema inputSchema.
+  note: >-
+    2024-11-05 is an older revision of the protocol. The current MCP
+    revisions (2025-03-26 / 2025-06-18 / 2026-07-28) are not negotiated by
+    this server even when the client offers one.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: 200 application/json at https://api.spate.nyc/.well-known/oauth-authorization-server
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: 200 application/json at https://api.spate.nyc/.well-known/oauth-protected-resource
+- id: rfc7636
+  name: PKCE
+  conforms: true
+  partial: true
+  evidence: code_challenge_methods_supported ["plain","S256"]
+  note: >-
+    S256 is supported, but `plain` is also advertised, which OAuth 2.1 and
+    the MCP authorization spec disallow.
+- id: oauth2
+  name: OAuth 2.0 / 2.1 authorization code with refresh
+  conforms: true
+  evidence: grant_types_supported ["authorization_code","refresh_token"]
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: false
+  partial: true
+  evidence: >-
+    A /.well-known/openid-configuration document is served, but
+    id_token_signing_alg_values_supported is ["none"] and no jwks_uri,
+    userinfo_endpoint or id_token issuance is advertised. The document is
+    MCP OAuth metadata wearing an OIDC filename, not a conformant OpenID
+    Provider.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors are returned as JSON-RPC error objects inside an HTTP 200, not as
+    application/problem+json.
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: 404 on /.well-known/security.txt across every Spate host.
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document found on api.spate.nyc, app.spate.nyc,
+    www.spate.nyc, help.spate.nyc or the app's GCP backend host after
+    probing /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json,
+    /api-docs, /docs, /redoc and /schema.
+- id: graphql
+  name: GraphQL
+  conforms: false
+  evidence: 404 on /graphql across every Spate host.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    404 on /.well-known/agent-card.json and /.well-known/agent.json on
+    api.spate.nyc and the marketing hosts; app.spate.nyc returns the SPA
+    HTML shell for both, which is a soft-404 and not a card.
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: 200 text/plain at https://www.spate.nyc/llms.txt, 4,764 bytes, real content.
+
+compliance_claims:
+- program: SOC 2
+  claimed: true
+  verified: false
+  source: https://www.spate.nyc/security-at-spate
+  quote: >-
+    "Our commitment to maintaining SOC 2 compliance reflects our dedication
+    to protecting the confidentiality, integrity, and availability of our
+    clients' data."
+  note: >-
+    Type I vs Type II is not stated, no auditor is named, and no report or
+    trust portal is offered for request.
+- program: GDPR
+  claimed: true
+  verified: false
+  source: https://www.spate.nyc/security-at-spate
+  quote: >-
+    "In addition to SOC 2 compliance, we adhere to other relevant regulatory
+    requirements including GDPR."
+- program: Annual penetration testing
+  claimed: true
+  verified: false
+  source: https://www.spate.nyc/security-at-spate
+  quote: '"penetration testing at least once annually"'

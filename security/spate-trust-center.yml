@@ -1,0 +1,65 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.spate.nyc/security-at-spate
+note: >-
+  Spate publishes a single "Security At Spate" page rather than a hosted
+  trust portal (no trust.spate.nyc, no Vanta/Drata/SafeBase surface — those
+  hostnames do not resolve to a Spate property). The page is real, substantive
+  and names its certifications, so it is recorded as the trust surface, with
+  the caveat that no artifacts (report, certificate, subprocessor list) are
+  downloadable or requestable from it.
+
+trust_center:
+  url: https://www.spate.nyc/security-at-spate
+  hosted_platform: null
+  self_serve_artifacts: false
+  nda_gated_request_flow: false
+  contact: security@spate.nyc
+
+certifications:
+- name: SOC 2
+  status: claimed
+  type: unspecified
+  auditor: not named
+  report_available: false
+  quote: >-
+    "SOC 2 (System and Organization Controls 2) is a framework for assessing
+    the controls related to security, availability, processing integrity,
+    confidentiality, and privacy"
+- name: GDPR
+  status: claimed
+  scope: regulatory adherence
+  quote: >-
+    "we adhere to other relevant regulatory requirements including GDPR"
+
+controls_published:
+- Automated vulnerability scanning of infrastructure and codebase
+- Penetration testing at least once annually
+- Security awareness training for employees
+- Stringent access controls and continuous infrastructure monitoring
+- Encryption of sensitive data in transit and at rest
+- Application secrets encrypted and stored in Google Cloud Secret Manager
+- Documented incident response with detailed incident logs and post-incident review
+- Third-party risk assessment and contractual oversight
+- Regular internal and external audits by accredited auditors
+
+related_policies:
+- name: Data Collection Policy
+  url: https://help.spate.nyc/en/article/data-collection-policy
+  note: >-
+    Governs Spate's own collection of public web data — lawfulness,
+    publicly-available-only sourcing, data minimization, anonymization and
+    aggregation. Directly relevant to a buyer assessing the provenance of
+    the trend data the API returns.
+- name: SLA
+  url: https://help.spate.nyc/en/article/sla-service-level-agreement
+- name: Privacy Policy
+  url: https://www.spate.nyc/privacy-policy
+- name: Your Privacy Rights
+  url: https://www.spate.nyc/your-privacy-rights
+
+gaps:
+- No subprocessor list published.
+- No data-residency statement.
+- SOC 2 Type I vs Type II not distinguished.
+- No downloadable or request-gated evidence of any named certification.

@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, api.github.com/orgs/SPATENYC,
+  https://help.spate.nyc/en/article/api-overview
+package_count: 0
+official_sdk_count: 0
+
+note: >-
+  Spate ships no client libraries in any public registry. This is a searched
+  zero, not an unchecked field — and it is consistent with how Spate describes
+  its own API: integrations are "manually configured by our technical team",
+  there are no self-serve API keys, and the only programmatic surface is a
+  remote MCP endpoint, which needs no vendor SDK because any MCP client speaks
+  to it directly. No `SDKs` pointer is emitted in apis.yml, because there is no
+  SDK to point at.
+
+packages: []
+
+registries_searched:
+- registry: npm
+  query: spate
+  result: >-
+    No first-party package. The npm package `spate` is an unrelated JavaScript
+    control-flow utility (github.com/nevir/spate); the remaining matches are
+    unrelated or placeholder packages.
+  official_match: false
+- registry: pypi
+  query: spate
+  result: >-
+    No first-party package. PyPI `spate` 0.2.3 is an unrelated workflow
+    composition engine (github.com/ajmazurie/spate).
+  official_match: false
+- registry: rubygems
+  result: no first-party package
+  official_match: false
+- registry: crates.io
+  result: no first-party package
+  official_match: false
+- registry: packagist
+  result: no first-party package
+  official_match: false
+- registry: nuget
+  result: no first-party package
+  official_match: false
+- registry: maven-central
+  result: no first-party package
+  official_match: false
+- registry: pkg.go.dev
+  result: no first-party package
+  official_match: false
+
+github:
+  org: SPATENYC
+  url: https://github.com/SPATENYC
+  verified: true
+  verification: >-
+    api.github.com/orgs/SPATENYC returns name "Spate" and blog "spate.nyc",
+    confirming company ownership.
+  public_repos: 0
+  note: >-
+    The organization exists and is provably Spate's, but publishes nothing.
+    There is no open-source client, no example code, and no spec repository.
+
+alternative_client_path:
+  surface: MCP
+  endpoint: https://api.spate.nyc/mcp
+  note: >-
+    Any MCP-capable client (Claude Desktop, an Agents SDK app, a custom
+    JSON-RPC client) can call the Spate tools with a bearer token and no
+    Spate-authored library. That is a legitimate substitute for an SDK on this
+    surface, but it does not cover the separately-sold Brand Data / Trend Data
+    endpoints described in the API Overview article, for which no client,
+    reference or spec is published at all.

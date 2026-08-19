@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.spate.nyc/pricing, https://help.spate.nyc/en/article/api-overview,
+  https://help.spate.nyc/en/article/account-billing
+plan_count: 0
+pricing_model: contact-sales
+public_pricing: false
+self_serve_signup: false
+
+note: >-
+  Spate publishes NO priced tiers. The /pricing route resolves but carries no
+  plan names, prices, seat counts or quotas — every path leads to "Book a
+  Demo". API access is explicitly an add-on quoted per customer: the API
+  Overview article states "API pricing depends on the types of data your team
+  wants to retrieve" and directs prospects to their Customer Success Manager
+  or support@spate.nyc. Recorded as plan_count 0 rather than omitted, because
+  the absence of published pricing is the measurement.
+
+plans: []
+
+api_access_requirements:
+  source: https://help.spate.nyc/en/article/api-overview
+  add_on: true
+  included_in_standard_subscription: false
+  minimum_seats: 5
+  requires_technical_contact: true
+  provisioning: >-
+    "Spate does not provide direct API keys. Instead, API integrations are
+    manually configured by our technical team to ensure proper access and
+    security."
+  onboarding_steps:
+  - Meeting with the customer's technical team
+  - Defining the data types needed
+  - Coordination with Spate's technical team
+  - Testing and validation
+  priced_by: >-
+    The data endpoints selected — Brand Data (brand-level performance, growth
+    patterns, share dynamics) and Trend Data (category trends, popularity
+    index, growth, related trends).
+
+trial:
+  offered: true
+  type: demo request
+  url: https://www.spate.nyc/trial
+  self_serve: false
+  note: >-
+    /trial is a demo-request form, not a self-serve trial. No credential is
+    issued without a sales conversation.
+
+billing:
+  self_serve_invoicing: false
+  source: https://help.spate.nyc/en/article/account-billing
+  note: >-
+    Invoices, suspensions and account changes all route through an account
+    manager or support@spate.nyc; there is no billing portal.

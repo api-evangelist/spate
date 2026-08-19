@@ -1,0 +1,135 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of /.well-known/* on every Spate host
+note: >-
+  Three real, machine-readable documents are served from
+  https://api.spate.nyc/.well-known/ — RFC 9728 protected-resource metadata,
+  RFC 8414 authorization-server metadata, and OpenID Connect discovery — all
+  three describing the OAuth 2.1 authorization server that fronts the Spate
+  MCP endpoint. No security.txt, api-catalog, ai-plugin.json or agent card is
+  served anywhere. IMPORTANT: app.spate.nyc answers HTTP 200 with the
+  single-page-app HTML shell for EVERY /.well-known/* path probed; every one
+  of those is a soft-404 and none is recorded as a hit. The same is true of
+  https://status.spate.nyc/.well-known/security.txt, which returns the
+  BetterStack status-page HTML.
+
+probes:
+- host: api.spate.nyc
+  path: /.well-known/oauth-protected-resource
+  status: 200
+  content_type: application/json
+  document: true
+  file: well-known/spate-oauth-protected-resource.json
+- host: api.spate.nyc
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  document: true
+  file: well-known/spate-oauth-authorization-server.json
+- host: api.spate.nyc
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json
+  document: true
+  file: well-known/spate-openid-configuration.json
+- host: api.spate.nyc
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: api.spate.nyc
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: api.spate.nyc
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: api.spate.nyc
+  path: /.well-known/agent-card.json
+  status: 404
+  document: false
+- host: api.spate.nyc
+  path: /.well-known/agent.json
+  status: 404
+  document: false
+- host: api.spate.nyc
+  path: /.well-known/mcp.json
+  status: 404
+  document: false
+- host: www.spate.nyc
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: www.spate.nyc
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: www.spate.nyc
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: www.spate.nyc
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: spate.nyc
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: spate.nyc
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: app.spate.nyc
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all returns the Spate app HTML shell; not a document.
+- host: app.spate.nyc
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404.
+- host: app.spate.nyc
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404.
+- host: app.spate.nyc
+  path: /.well-known/api-catalog
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404.
+- host: app.spate.nyc
+  path: /.well-known/ai-plugin.json
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404.
+- host: app.spate.nyc
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404. NOT an agent card.
+- host: app.spate.nyc
+  path: /.well-known/agent.json
+  status: 200
+  content_type: text/html
+  document: false
+  note: SPA catch-all; soft-404. NOT an agent card.
+- host: status.spate.nyc
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/html
+  document: false
+  note: BetterStack status-page HTML; soft-404, and not Spate-authored in any case.
+
+documents_found: 3
+security_txt: false
+api_catalog: false
+agent_card: false

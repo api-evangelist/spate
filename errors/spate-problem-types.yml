@@ -1,0 +1,59 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.spate.nyc/mcp
+format: jsonrpc-2.0
+note: >-
+  Spate publishes no OpenAPI and no error reference, so there are no 4xx/5xx
+  response objects to derive from. Every entry below was OBSERVED live against
+  the MCP endpoint on 2026-08-13. This catalog is deliberately short: it
+  records only errors this pipeline actually triggered, never errors inferred
+  from the protocol spec.
+
+envelope:
+  transport: HTTP
+  http_status_on_error: 200
+  shape: |
+    {"jsonrpc":"2.0","id":<id>,"error":{"code":<int>,"message":"<string>"}}
+  fields:
+    code: integer, JSON-RPC error code
+    message: human-readable string
+    data: not observed
+  note: >-
+    Errors ride inside an HTTP 200. A client that routes on HTTP status alone
+    will read every failure as a success, so the JSON-RPC error member is the
+    only failure signal available. There is no application/problem+json
+    (RFC 9457) representation.
+
+problem_types:
+- code: -32001
+  name: missing_authorization
+  message: 'Missing Authorization: Bearer token'
+  http_status: 200
+  observed: true
+  trigger: tools/call without an Authorization header
+  class: server-defined (JSON-RPC implementation-defined range)
+  remediation: >-
+    Present an OAuth 2.1 bearer token obtained from
+    https://api.spate.nyc/mcp/oauth/token with scope `mcp`. Spate does not
+    issue self-serve keys; access is provisioned by their technical team.
+  retriable: false
+- code: -32601
+  name: method_not_found
+  message: Method not found
+  http_status: 200
+  observed: true
+  trigger: 'resources/list and prompts/list — neither capability is implemented'
+  class: JSON-RPC 2.0 standard
+  remediation: >-
+    Use only the `initialize`, `tools/list` and `tools/call` methods; the
+    server advertises the tools capability only.
+  retriable: false
+
+gaps:
+- No rate-limit or quota error observed or documented.
+- No validation-error shape observed; the four tools use strict JSON Schema
+  with additionalProperties:false and enumerated values, so a schema-invalid
+  argument should be rejected, but the response shape is unverified because
+  tools/call is auth-gated.
+- No `data` member observed on any error, so there is no machine-actionable
+  detail beyond the code.

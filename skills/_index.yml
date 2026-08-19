@@ -1,0 +1,29 @@
+generated: '2026-08-13'
+method: generated
+source: mcp/spate-mcp-tools.json
+note: >-
+  Spate publishes no OpenAPI, so these skills are grounded in the four real MCP
+  tool names and their live JSON Schema input contracts, fetched anonymously
+  from https://api.spate.nyc/mcp via tools/list. Every parameter, enum value
+  and error code cited in the skills was observed on the wire; no operation or
+  field was invented. Spate publishes no AGENTS.md or first-party skills.
+provider_published: false
+skills:
+- name: spate-category-trend-discovery
+  file: skills/spate-category-trend-discovery.md
+  surface: mcp
+  operations: [find_category, top_trends]
+  summary: >-
+    Resolve a category name to a Spate taxonomy UUID and pull the top-ranked
+    trends inside it for one market.
+- name: spate-trend-trajectory-and-adjacency
+  file: skills/spate-trend-trajectory-and-adjacency.md
+  surface: mcp
+  operations: [find_category, time_series, top_related_trends]
+  summary: >-
+    Read a cat5 category's trajectory across the popularity index, TikTok and
+    Reddit, and map adjacent categories along one of 44 affinity dimensions.
+tool_coverage:
+  total_tools: 4
+  covered: 4
+  uncovered: []

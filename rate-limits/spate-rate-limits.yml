@@ -1,0 +1,55 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://api.spate.nyc/mcp response headers, plus
+  https://help.spate.nyc/en/article/api-overview
+limit_count: 0
+documented: false
+
+note: >-
+  Spate documents no rate limits anywhere on spate.nyc or help.spate.nyc, and
+  the live MCP endpoint returns no rate-limit headers on either the anonymous
+  `initialize`/`tools/list` responses or the auth-challenged `tools/call`
+  response. An honest zero: this is a measured absence, not an unchecked field.
+  Because the call surface is OAuth-gated and access is sales-provisioned, any
+  real quota is presumably set per contract and communicated privately.
+
+limits: []
+
+response_headers:
+  observed: []
+  checked:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  - RateLimit
+  - RateLimit-Policy
+  - Retry-After
+  result: none present on any observed response
+  ietf_ratelimit_headers: false
+
+exhaustion:
+  status_code: unknown
+  error_code: unknown
+  note: >-
+    No 429 or quota error could be triggered — tools/call is rejected at the
+    authorization layer (JSON-RPC -32001) before any quota is evaluated.
+
+in_contract_result_caps:
+  note: >-
+    The only quantity control expressed in the contract is the `limit`
+    parameter on top_trends and top_related_trends, a closed enum of
+    top5 / top100 / all. That is a result-set cap, not a rate limit.
+
+quota:
+  documented: false
+  contractual: likely
+  evidence: >-
+    "API pricing depends on the types of data your team wants to retrieve"
+    (https://help.spate.nyc/en/article/api-overview) implies volume/scope is
+    negotiated commercially rather than published.
+
+recommendation: >-
+  Publishing IETF RateLimit-* (or X-RateLimit-*) headers on the MCP endpoint
+  would let an agent pace itself without a contract document. Today an agent
+  has no runtime signal at all.

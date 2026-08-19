@@ -1,0 +1,147 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/spate-mcp-tools.json
+docs: https://help.spate.nyc/en/article/how-spate-data-works
+note: >-
+  Derived from the JSON Schema input contracts of the four live MCP tools plus
+  Spate's own metric glossary in the help center. There is no OpenAPI and no
+  published object reference, so no response schemas exist to read — this
+  graph models the entities the REQUEST surface proves exist and how they
+  reference each other. Response field names are deliberately NOT modeled:
+  tools/call is auth-gated and no response body was ever observed, so
+  inventing one would be fabrication.
+
+entities:
+- name: Category
+  description: >-
+    A node in Spate's five-level consumer taxonomy. Every trend query is
+    anchored to a category at a stated level.
+  identifier:
+    field: category_id
+    format: uuid
+    prefixed: false
+  levels: [cat1, cat2, cat3, cat4, cat5]
+  level_semantics: >-
+    cat1 is the broadest grouping and cat5 the most specific; cat5 is the only
+    level accepted by time_series and the only level returned by
+    top_related_trends, which makes cat5 the working unit of the model.
+  resolved_by: find_category
+  appears_in: [top_trends, top_related_trends, time_series]
+
+- name: Brand
+  description: >-
+    A brand-level entity tracked alongside categories. Spate's help center
+    describes brand-level performance, growth patterns and share dynamics as a
+    distinct data product from trend data.
+  identifier:
+    field: item_id
+    format: uuid
+  appears_in: [time_series]
+  note: >-
+    Brand is reachable through time_series via item_type=brand, but there is
+    NO published tool that resolves a brand name to a brand UUID —
+    find_category searches categories only. An agent therefore cannot enter
+    the brand surface from a natural-language brand name using the public
+    tool set.
+
+- name: Region
+  description: Geographic market a measurement is scoped to.
+  identifier:
+    field: region
+    format: enum
+  values: [us, gb, fr, jp, kr, global]
+  appears_in: [top_trends, top_related_trends, time_series]
+
+- name: DataSource
+  description: The upstream signal a measurement is computed from.
+  identifier:
+    field: data_source
+    format: enum
+  values:
+    time_series: [popindex, tiktok, reddit]
+    top_trends: [popindex]
+  note: >-
+    Asymmetric. The popularity index (popindex) is Spate's own composite
+    metric; tiktok and reddit are platform-native series available only on
+    time_series. Instagram and Google appear in Spate's marketing and help
+    center as tracked sources but are NOT selectable through the MCP surface.
+
+- name: AffinityGroup
+  description: >-
+    The relationship dimension along which related cat5 categories are ranked
+    — the edge type of the trend graph.
+  identifier:
+    field: affinity_group
+    format: enum
+  cardinality: 44
+  values: [apps, beauty-trends, benefits, body-parts, charities, clean-beauty,
+    colors-and-prints, commercial-content, company, concerns, creator-content,
+    demographics, diet, diy, dupes, economy, experts-and-advisers,
+    eye-shape-and-color, food-ingredients, geographic-location, hair-color,
+    hair-looks, hair-type, holidays, influencers, ingredients, location-types,
+    packaging, payment-modes, pets, product-characteristics, product-format,
+    purchases, questions, recipe, retailers, routines, scents, sentiment,
+    skin-tone, skin-type, social-media, taste-and-composition, theme]
+  appears_in: [top_related_trends]
+
+- name: TimeSeries
+  description: >-
+    A dated measurement series for one item (a cat5 category or a brand) in one
+    region from one data source.
+  identifier: composite (item_type + item_id + region + data_source)
+  appears_in: [time_series]
+
+- name: PopularityIndex
+  description: >-
+    Spate's proprietary composite demand metric, documented at
+    https://help.spate.nyc/en/article/the-popularity-index. It is the default
+    and only ranking basis for top_trends and top_related_trends.
+  identifier: not addressable; a measurement, not a resource
+
+relationships:
+- from: Category
+  to: Category
+  type: has_many
+  via: parent/child taxonomy level (cat1 -> cat2 -> cat3 -> cat4 -> cat5)
+  evidence: the `level` / `category_level` enums on top_trends and top_related_trends
+- from: Category
+  to: Category
+  type: has_many
+  via: affinity_group edge, ranked by popularity index
+  evidence: top_related_trends returns related cat5 categories for a category_id
+- from: Category
+  to: TimeSeries
+  type: has_many
+  via: item_id where item_type=cat5
+  evidence: time_series
+- from: Brand
+  to: TimeSeries
+  type: has_many
+  via: item_id where item_type=brand
+  evidence: time_series
+- from: TimeSeries
+  to: Region
+  type: belongs_to
+  via: region
+- from: TimeSeries
+  to: DataSource
+  type: belongs_to
+  via: data_source
+- from: Category
+  to: Region
+  type: belongs_to
+  via: region
+  note: every category measurement is region-scoped; there is no region-free read
+
+entry_points:
+- tool: find_category
+  from: human category name (string)
+  to: Category (uuid)
+  note: the only name-to-id resolver in the public tool set
+
+gaps:
+- No brand resolver — Brand entities are unreachable without an out-of-band UUID.
+- No response schemas published; field names, units and date granularity of
+  every returned measurement are undocumented.
+- Instagram and Google are tracked by the product but absent from the
+  data_source enum, so the API surface is narrower than the dashboard.
