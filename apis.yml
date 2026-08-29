@@ -13,6 +13,17 @@ description: 'Spate is an AI-powered consumer trend forecasting and market intel
   SDK, or self-serve API key: Spate states that API integrations are manually
   configured by its technical team.'
 url: https://raw.githubusercontent.com/api-evangelist/spate/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: sales
