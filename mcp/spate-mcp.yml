@@ -2,25 +2,23 @@ generated: '2026-08-13'
 method: probed
 source: https://api.spate.nyc/mcp
 name: Spate MCP Server
-description: >-
-  Spate operates a live, remote Model Context Protocol server at
-  https://api.spate.nyc/mcp that exposes its consumer trend intelligence —
-  the Spate popularity index, TikTok and Reddit time series, category
-  taxonomy and affinity-group relationships — as four MCP tools. The server
-  answers anonymous `initialize` and `tools/list` calls, so the real tool
-  set and its JSON Schema input contracts are publicly readable, but every
-  `tools/call` is rejected with JSON-RPC error -32001 "Missing
-  Authorization: Bearer token" until an OAuth 2.1 access token is presented.
-  Spate publishes no OpenAPI, no GraphQL schema and no public reference for
-  this surface; the tool manifest captured here IS the machine-readable
-  contract.
-
+description: 'Spate operates a live, remote Model Context Protocol server at https://api.spate.nyc/mcp
+  that exposes its consumer trend intelligence — the Spate popularity index, TikTok and Reddit time series,
+  category taxonomy and affinity-group relationships — as four MCP tools. The server answers anonymous
+  `initialize` and `tools/list` calls, so the real tool set and its JSON Schema input contracts are publicly
+  readable, but every `tools/call` is rejected with JSON-RPC error -32001 "Missing Authorization: Bearer
+  token" until an OAuth 2.1 access token is presented. Spate publishes no OpenAPI, no GraphQL schema and
+  no public reference for this surface; the tool manifest captured here IS the machine-readable contract.'
 deployment:
   mode: remote
   endpoint: https://api.spate.nyc/mcp
   auth: oauth
   verified: probed
-
+  probe_prior: (never probed)
+  probe: live
+  probe_why: live
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
 server:
   name: spate_api
   version: 543015c517ab49f72c318efc7216bc9062586078
@@ -30,12 +28,9 @@ server:
     tools: true
     resources: false
     prompts: false
-  notes: >-
-    serverInfo returned verbatim by `initialize` on 2026-08-13. The version
-    string is a git commit SHA rather than a semantic version, so consumers
-    cannot reason about compatibility from it. `resources/list` and
-    `prompts/list` both return JSON-RPC -32601 Method not found.
-
+  notes: serverInfo returned verbatim by `initialize` on 2026-08-13. The version string is a git commit
+    SHA rather than a semantic version, so consumers cannot reason about compatibility from it. `resources/list`
+    and `prompts/list` both return JSON-RPC -32601 Method not found.
 authorization:
   scheme: oauth2
   bearer_methods_supported:
@@ -61,13 +56,10 @@ authorization:
   - path: /.well-known/openid-configuration
     rfc: OpenID Connect Discovery 1.0
     status: 200
-  onboarding: >-
-    Spate's own API Overview article states Spate "does not provide direct
-    API keys" and that "API integrations are manually configured by our
-    technical team". There is no self-serve registration endpoint advertised
-    in the authorization server metadata, so obtaining a token is a
-    sales-mediated process.
-
+  onboarding: Spate's own API Overview article states Spate "does not provide direct API keys" and that
+    "API integrations are manually configured by our technical team". There is no self-serve registration
+    endpoint advertised in the authorization server metadata, so obtaining a token is a sales-mediated
+    process.
 tools:
 - name: top_trends
   description: Pulls the most popular trends for a category in a given region, for a give data source.
@@ -78,10 +70,25 @@ tools:
   - region
   - category_id
   parameters:
-    level: [cat1, cat2, cat3, cat4, cat5]
-    limit: [top5, top100, all]
-    data_source: [popindex]
-    region: [us, gb, fr, jp, kr, global]
+    level:
+    - cat1
+    - cat2
+    - cat3
+    - cat4
+    - cat5
+    limit:
+    - top5
+    - top100
+    - all
+    data_source:
+    - popindex
+    region:
+    - us
+    - gb
+    - fr
+    - jp
+    - kr
+    - global
     category_id: uuid
 - name: time_series
   description: Fetch timeseries data for an item.
@@ -91,9 +98,20 @@ tools:
   - region
   - item_id
   parameters:
-    item_type: [cat5, brand]
-    data_source: [popindex, tiktok, reddit]
-    region: [us, gb, fr, jp, kr, global]
+    item_type:
+    - cat5
+    - brand
+    data_source:
+    - popindex
+    - tiktok
+    - reddit
+    region:
+    - us
+    - gb
+    - fr
+    - jp
+    - kr
+    - global
     item_id: uuid
 - name: top_related_trends
   description: Fetch related cat5 categories ranked by popularity index.
@@ -104,9 +122,23 @@ tools:
   - category_id
   - affinity_group
   parameters:
-    category_level: [cat1, cat2, cat3, cat4, cat5]
-    limit: [top5, top100, all]
-    region: [us, gb, fr, jp, kr, global]
+    category_level:
+    - cat1
+    - cat2
+    - cat3
+    - cat4
+    - cat5
+    limit:
+    - top5
+    - top100
+    - all
+    region:
+    - us
+    - gb
+    - fr
+    - jp
+    - kr
+    - global
     category_id: uuid
     affinity_group: 44 enumerated values (see mcp/spate-mcp-tools.json)
 - name: find_category
@@ -115,10 +147,8 @@ tools:
   - name
   parameters:
     name: string
-
 tool_count: 4
 raw_manifest: mcp/spate-mcp-tools.json
-
 x-evidence:
   fetched: '2026-08-13'
   tools_list:
@@ -139,13 +169,9 @@ x-evidence:
     http_status: 200
     jsonrpc_error: -32001 Missing Authorization&#58; Bearer token
     note: HTTP 200 carrying a JSON-RPC error envelope; the call surface is gated.
-
 ownership:
   host: api.spate.nyc
-  justification: >-
-    api.spate.nyc is a subdomain of spate.nyc, the company's own registered
-    domain. The MCP serverInfo self-identifies as `spate_api`, the OAuth
-    issuer is https://api.spate.nyc/mcp, the API host root responds
-    "Greetings from Spate API", and the tool vocabulary (popularity index,
-    cat1-cat5 taxonomy, beauty/wellness affinity groups) matches the product
-    Spate documents on its own help center.
+  justification: api.spate.nyc is a subdomain of spate.nyc, the company's own registered domain. The MCP
+    serverInfo self-identifies as `spate_api`, the OAuth issuer is https://api.spate.nyc/mcp, the API
+    host root responds "Greetings from Spate API", and the tool vocabulary (popularity index, cat1-cat5
+    taxonomy, beauty/wellness affinity groups) matches the product Spate documents on its own help center.
