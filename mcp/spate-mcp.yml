@@ -175,3 +175,28 @@ ownership:
     serverInfo self-identifies as `spate_api`, the OAuth issuer is https://api.spate.nyc/mcp, the API
     host root responds "Greetings from Spate API", and the tool vocabulary (popularity index, cat1-cat5
     taxonomy, beauty/wellness affinity groups) matches the product Spate documents on its own help center.
+tool_quality:
+  tool_count: 15
+  tokens_total: 3079
+  tokens_per_tool_median: 187
+  heavy_tools: []
+  heavy_tool_count: 0
+  params_total: 52
+  params_undescribed: 0
+  params_described_pct: 100.0
+  tools_with_undescribed_params: 0
+  tools_annotated: 0
+  annotated_pct: 0.0
+  state_changing_unhinted: []
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/spate-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.

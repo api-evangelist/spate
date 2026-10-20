@@ -1,237 +1,753 @@
 {
-    "id": 1,
-    "jsonrpc": "2.0",
-    "result": {
-        "tools": [
-            {
-                "description": "Pulls the most popular trends for a category in a given region, for a give data source.",
-                "inputSchema": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "category_id": {
-                            "description": "Category ID. As a uuid.",
-                            "type": "string"
-                        },
-                        "data_source": {
-                            "description": "Data source. Only the popularity index is supported for now.",
-                            "enum": [
-                                "popindex"
-                            ],
-                            "type": "string"
-                        },
-                        "level": {
-                            "description": "Categorisation level.",
-                            "enum": [
-                                "cat1",
-                                "cat2",
-                                "cat3",
-                                "cat4",
-                                "cat5"
-                            ],
-                            "type": "string"
-                        },
-                        "limit": {
-                            "description": "Maximum number of results to return.",
-                            "enum": [
-                                "top5",
-                                "top100",
-                                "all"
-                            ],
-                            "type": "string"
-                        },
-                        "region": {
-                            "description": "Region code, such as `us`.",
-                            "enum": [
-                                "us",
-                                "gb",
-                                "fr",
-                                "jp",
-                                "kr",
-                                "global"
-                            ],
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "level",
-                        "limit",
-                        "data_source",
-                        "region",
-                        "category_id"
-                    ],
-                    "type": "object"
-                },
-                "name": "top_trends"
+  "endpoint": "https://api.spate.nyc/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2024-11-05",
+  "server_info": {
+    "name": "spate_api",
+    "version": "7c7bb1a2e1f916482d95adf8c42463922eb96b16"
+  },
+  "result": {
+    "tools": [
+      {
+        "description": "Pulls the most popular trends for a category in a given region, for a given data source.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Category ID. As a uuid.",
+              "type": "string"
             },
-            {
-                "description": "Fetch timeseries data for an item.",
-                "inputSchema": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "data_source": {
-                            "description": "Data source.",
-                            "enum": [
-                                "popindex",
-                                "tiktok",
-                                "reddit"
-                            ],
-                            "type": "string"
-                        },
-                        "item_id": {
-                            "description": "ID of the item. As a UUID.",
-                            "type": "string"
-                        },
-                        "item_type": {
-                            "description": "Categorisation level, or brand.",
-                            "enum": [
-                                "cat5",
-                                "brand"
-                            ],
-                            "type": "string"
-                        },
-                        "region": {
-                            "description": "Region code, such as `us`.",
-                            "enum": [
-                                "us",
-                                "gb",
-                                "fr",
-                                "jp",
-                                "kr",
-                                "global"
-                            ],
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "item_type",
-                        "data_source",
-                        "region",
-                        "item_id"
-                    ],
-                    "type": "object"
-                },
-                "name": "time_series"
+            "data_source": {
+              "description": "Data source. Only the popularity index is supported for now.",
+              "enum": [
+                "popindex"
+              ],
+              "type": "string"
             },
-            {
-                "description": "Fetch related cat5 categories ranked by popularity index.",
-                "inputSchema": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "affinity_group": {
-                            "description": "Affinity group for related categories.",
-                            "enum": [
-                                "apps",
-                                "beauty-trends",
-                                "benefits",
-                                "body-parts",
-                                "charities",
-                                "clean-beauty",
-                                "colors-and-prints",
-                                "commercial-content",
-                                "company",
-                                "concerns",
-                                "creator-content",
-                                "demographics",
-                                "diet",
-                                "diy",
-                                "dupes",
-                                "economy",
-                                "experts-and-advisers",
-                                "eye-shape-and-color",
-                                "food-ingredients",
-                                "geographic-location",
-                                "hair-color",
-                                "hair-looks",
-                                "hair-type",
-                                "holidays",
-                                "influencers",
-                                "ingredients",
-                                "location-types",
-                                "packaging",
-                                "payment-modes",
-                                "pets",
-                                "product-characteristics",
-                                "product-format",
-                                "purchases",
-                                "questions",
-                                "recipe",
-                                "retailers",
-                                "routines",
-                                "scents",
-                                "sentiment",
-                                "skin-tone",
-                                "skin-type",
-                                "social-media",
-                                "taste-and-composition",
-                                "theme"
-                            ],
-                            "type": "string"
-                        },
-                        "category_id": {
-                            "description": "Category ID. As a uuid.",
-                            "type": "string"
-                        },
-                        "category_level": {
-                            "description": "Categorisation level.",
-                            "enum": [
-                                "cat1",
-                                "cat2",
-                                "cat3",
-                                "cat4",
-                                "cat5"
-                            ],
-                            "type": "string"
-                        },
-                        "limit": {
-                            "description": "Maximum number of results to return.",
-                            "enum": [
-                                "top5",
-                                "top100",
-                                "all"
-                            ],
-                            "type": "string"
-                        },
-                        "region": {
-                            "description": "Region code, such as `us`.",
-                            "enum": [
-                                "us",
-                                "gb",
-                                "fr",
-                                "jp",
-                                "kr",
-                                "global"
-                            ],
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "category_level",
-                        "limit",
-                        "region",
-                        "category_id",
-                        "affinity_group"
-                    ],
-                    "type": "object"
-                },
-                "name": "top_related_trends"
+            "level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1",
+                "cat2"
+              ],
+              "type": "string"
             },
-            {
-                "description": "Find matching SPATE categories by category name.",
-                "inputSchema": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "name": {
-                            "description": "Category name or partial category name to search for.",
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "name"
-                    ],
-                    "type": "object"
-                },
-                "name": "find_category"
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
             }
-        ]
-    }
+          },
+          "required": [
+            "level",
+            "limit",
+            "data_source",
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_trends"
+      },
+      {
+        "description": "Returns the most popular brands for a category in a given region, ranked by popularity index.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Identifier of the category you want brands for.",
+              "type": "string"
+            },
+            "level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1",
+                "cat2"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Number of rows to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code for the market you want data from.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "kr",
+                "jp",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "level",
+            "limit",
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_brands"
+      },
+      {
+        "description": "Get top brands related to a category for a market, ranked by popularity index.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Identifier of the category you want brands for.",
+              "type": "string"
+            },
+            "category_level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat3",
+                "cat4",
+                "cat5"
+              ],
+              "type": "string"
+            },
+            "data_source": {
+              "description": "Data source used to rank related brands.",
+              "enum": [
+                "popindex",
+                "tiktok"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Number of rows to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code for the market you want data from.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "kr",
+                "jp",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_level",
+            "limit",
+            "data_source",
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_related_brands"
+      },
+      {
+        "description": "Returns top related TikTok hashtags and associated metrics for a category, region, and related group.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "affinity_group": {
+              "description": "Affinity group for related categories.",
+              "enum": [
+                "apps",
+                "beauty-trends",
+                "benefits",
+                "body-parts",
+                "charities",
+                "clean-beauty",
+                "colors-and-prints",
+                "commercial-content",
+                "company",
+                "concerns",
+                "creator-content",
+                "demographics",
+                "diet",
+                "diy",
+                "dupes",
+                "economy",
+                "experts-and-advisers",
+                "eye-shape-and-color",
+                "food-ingredients",
+                "geographic-location",
+                "hair-color",
+                "hair-looks",
+                "hair-type",
+                "holidays",
+                "influencers",
+                "ingredients",
+                "location-types",
+                "packaging",
+                "payment-modes",
+                "pets",
+                "product-characteristics",
+                "product-format",
+                "purchases",
+                "questions",
+                "recipe",
+                "retailers",
+                "routines",
+                "scents",
+                "sentiment",
+                "skin-tone",
+                "skin-type",
+                "social-media",
+                "taste-and-composition",
+                "theme"
+              ],
+              "type": "string"
+            },
+            "category_id": {
+              "description": "Category ID. As a uuid.",
+              "type": "string"
+            },
+            "category_level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1"
+              ],
+              "type": "string"
+            },
+            "data_source": {
+              "description": "Platform/data source.",
+              "enum": [
+                "tiktok"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_level",
+            "limit",
+            "data_source",
+            "region",
+            "category_id",
+            "affinity_group"
+          ],
+          "type": "object"
+        },
+        "name": "top_related_hashtags"
+      },
+      {
+        "description": "Fetch time-series data for a category, brand or hashtag. Supported combinations are cat5/popindex, brand/popindex, brand/tiktok, hashtag/tiktok, and cat5/reddit (region global only).",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "data_source": {
+              "description": "Data source. Supported item_type/data_source combinations are cat5/popindex, brand/popindex, brand/tiktok, hashtag/tiktok, and cat5/reddit (region global only).",
+              "enum": [
+                "popindex",
+                "tiktok",
+                "reddit"
+              ],
+              "type": "string"
+            },
+            "item_id": {
+              "description": "UUID of the category or brand, or the hashtag itself (e.g. `#nivea`) for item_type hashtag.",
+              "type": "string"
+            },
+            "item_type": {
+              "description": "Type of item to fetch time-series data for. Supported with data_source as: cat5/popindex, brand/popindex, brand/tiktok, hashtag/tiktok, cat5/reddit (region global only).",
+              "enum": [
+                "cat5",
+                "brand",
+                "hashtag"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`. `cat5/reddit` only supports `global`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "item_type",
+            "data_source",
+            "region",
+            "item_id"
+          ],
+          "type": "object"
+        },
+        "name": "time_series"
+      },
+      {
+        "description": "Fetch related trends for a category, ranked by popularity index.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Category ID. As a uuid.",
+              "type": "string"
+            },
+            "category_level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1",
+                "cat2",
+                "cat3",
+                "cat4",
+                "cat5"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_level",
+            "limit",
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_related_trends_no_group"
+      },
+      {
+        "description": "Fetch related trends for a category and affinity group, ranked by popularity index.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "affinity_group": {
+              "description": "Affinity group for related categories.",
+              "enum": [
+                "apps",
+                "beauty-trends",
+                "benefits",
+                "body-parts",
+                "charities",
+                "clean-beauty",
+                "colors-and-prints",
+                "commercial-content",
+                "company",
+                "concerns",
+                "creator-content",
+                "demographics",
+                "diet",
+                "diy",
+                "dupes",
+                "economy",
+                "experts-and-advisers",
+                "eye-shape-and-color",
+                "food-ingredients",
+                "geographic-location",
+                "hair-color",
+                "hair-looks",
+                "hair-type",
+                "holidays",
+                "influencers",
+                "ingredients",
+                "location-types",
+                "packaging",
+                "payment-modes",
+                "pets",
+                "product-characteristics",
+                "product-format",
+                "purchases",
+                "questions",
+                "recipe",
+                "retailers",
+                "routines",
+                "scents",
+                "sentiment",
+                "skin-tone",
+                "skin-type",
+                "social-media",
+                "taste-and-composition",
+                "theme"
+              ],
+              "type": "string"
+            },
+            "category_id": {
+              "description": "Category ID. As a uuid.",
+              "type": "string"
+            },
+            "category_level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1",
+                "cat2",
+                "cat3",
+                "cat4",
+                "cat5"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_level",
+            "limit",
+            "region",
+            "category_id",
+            "affinity_group"
+          ],
+          "type": "object"
+        },
+        "name": "top_related_trends_by_group"
+      },
+      {
+        "description": "Find matching SPATE categories by category name.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "Category name or partial category name to search for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "name": "find_category"
+      },
+      {
+        "description": "Find matching SPATE brands by brand name.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "Brand name or partial brand name to search for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "name": "find_brand"
+      },
+      {
+        "description": "Find matching SPATE hashtags by hashtag name.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "Hashtag name or partial hashtag name to search for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "name": "find_hashtag"
+      },
+      {
+        "description": "Get top hashtags for a category, category level, region, and data source.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Category ID as a UUID.",
+              "type": "string"
+            },
+            "data_source": {
+              "description": "Data source for hashtag metrics.",
+              "enum": [
+                "tiktok"
+              ],
+              "type": "string"
+            },
+            "level": {
+              "description": "Categorisation level.",
+              "enum": [
+                "cat1",
+                "cat2",
+                "cat3",
+                "cat4",
+                "cat5"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "top10k"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "level",
+            "limit",
+            "data_source",
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_hashtags"
+      },
+      {
+        "description": "Get the top TikTok posts for a category (level cat1 to cat5) or a brand (level brand) in a region, ordered like the dashboard (average weekly views over the last month). Each post includes views, likes, growth, paid/shop flags, sentiment and transcript when available.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "data_source": {
+              "description": "Data source for post metrics.",
+              "enum": [
+                "tiktok"
+              ],
+              "type": "string"
+            },
+            "item_id": {
+              "description": "UUID of the category (level cat1 to cat5) or of the brand (level brand); see find_category / find_brand.",
+              "type": "string"
+            },
+            "level": {
+              "description": "Categorisation level, or `brand` for the top posts of a brand.",
+              "enum": [
+                "cat1",
+                "cat2",
+                "cat3",
+                "cat4",
+                "cat5",
+                "brand"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of posts to return. `all` can return thousands of posts (several MB) for large brands, and credits are charged per post: prefer `top5`, `top20` or `top100`.",
+              "enum": [
+                "top5",
+                "top20",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "level",
+            "limit",
+            "data_source",
+            "region",
+            "item_id"
+          ],
+          "type": "object"
+        },
+        "name": "top_posts"
+      },
+      {
+        "description": "Returns the top TikTok creators for a cat5 category in a region.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "category_id": {
+              "description": "Category ID as a UUID.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code for the market you want data from.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "region",
+            "category_id"
+          ],
+          "type": "object"
+        },
+        "name": "creators"
+      },
+      {
+        "description": "Returns credit usage overview rows for the organization associated with the authenticated API key.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        },
+        "name": "admin_credits"
+      },
+      {
+        "description": "Get the top related trends for a brand by popularity index or TikTok views.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "description": "Brand ID. As a uuid.",
+              "type": "string"
+            },
+            "data_source": {
+              "description": "Data source used to rank related trends.",
+              "enum": [
+                "popindex",
+                "tiktok"
+              ],
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of results to return.",
+              "enum": [
+                "top5",
+                "top100",
+                "all"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Region code, such as `us`.",
+              "enum": [
+                "us",
+                "gb",
+                "fr",
+                "jp",
+                "kr",
+                "global"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "limit",
+            "data_source",
+            "region",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "name": "brand_top_related_trends"
+      }
+    ]
+  }
 }
