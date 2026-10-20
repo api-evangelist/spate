@@ -62,7 +62,7 @@ authorization:
     process.
 tools:
 - name: top_trends
-  description: Pulls the most popular trends for a category in a given region, for a give data source.
+  description: Pulls the most popular trends for a category in a given region, for a given data source.
   required:
   - level
   - limit
@@ -90,8 +90,17 @@ tools:
     - kr
     - global
     category_id: uuid
+- name: top_brands
+  description: Returns the most popular brands for a category in a given region, ranked by popularity
+    index.
+- name: top_related_brands
+  description: Get top brands related to a category for a market, ranked by popularity index.
+- name: top_related_hashtags
+  description: Returns top related TikTok hashtags and associated metrics for a category, region, and
+    related group.
 - name: time_series
-  description: Fetch timeseries data for an item.
+  description: Fetch time-series data for a category, brand or hashtag. Supported combinations are cat5/popindex,
+    brand/popindex, brand/tiktok, hashtag/tiktok, and cat5/reddit (region global only).
   required:
   - item_type
   - data_source
@@ -113,41 +122,34 @@ tools:
     - kr
     - global
     item_id: uuid
-- name: top_related_trends
-  description: Fetch related cat5 categories ranked by popularity index.
-  required:
-  - category_level
-  - limit
-  - region
-  - category_id
-  - affinity_group
-  parameters:
-    category_level:
-    - cat1
-    - cat2
-    - cat3
-    - cat4
-    - cat5
-    limit:
-    - top5
-    - top100
-    - all
-    region:
-    - us
-    - gb
-    - fr
-    - jp
-    - kr
-    - global
-    category_id: uuid
-    affinity_group: 44 enumerated values (see mcp/spate-mcp-tools.json)
+- name: top_related_trends_no_group
+  description: Fetch related trends for a category, ranked by popularity index.
+- name: top_related_trends_by_group
+  description: Fetch related trends for a category and affinity group, ranked by popularity index.
 - name: find_category
   description: Find matching SPATE categories by category name.
   required:
   - name
   parameters:
     name: string
-tool_count: 4
+- name: find_brand
+  description: Find matching SPATE brands by brand name.
+- name: find_hashtag
+  description: Find matching SPATE hashtags by hashtag name.
+- name: top_hashtags
+  description: Get top hashtags for a category, category level, region, and data source.
+- name: top_posts
+  description: Get the top TikTok posts for a category (level cat1 to cat5) or a brand (level brand) in
+    a region, ordered like the dashboard (average weekly views over the last month). Each post includes
+    views, likes, growth, paid/shop flags, sentiment and transcript when available.
+- name: creators
+  description: Returns the top TikTok creators for a cat5 category in a region.
+- name: admin_credits
+  description: Returns credit usage overview rows for the organization associated with the authenticated
+    API key.
+- name: brand_top_related_trends
+  description: Get the top related trends for a brand by popularity index or TikTok views.
+tool_count: 15
 raw_manifest: mcp/spate-mcp-tools.json
 x-evidence:
   fetched: '2026-08-13'
@@ -200,3 +202,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 15
